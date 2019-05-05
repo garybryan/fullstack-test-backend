@@ -20,10 +20,10 @@ parser.add_argument('search')
 
 def search_stores(search):
     search = search.lower()
-    # TODO match postcode first
     matching_postcode = []
     matching_name = []
     for index, store in enumerate(LOWERCASE_STORES):
+        # Stores matching postcode should be returned before ones matching name.
         if search in store['postcode'].lower():
             matching_postcode.append(STORES[index])
         elif search in store['name'].lower():
