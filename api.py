@@ -11,6 +11,9 @@ with open('stores.json') as f:
     STORES = json.load(f)
 
 
+LOWERCASE_STORES = [{key: val.lower() for key, val in store.items()} for store in STORES]
+
+
 parser = reqparse.RequestParser()
 parser.add_argument('search')
 
@@ -20,11 +23,11 @@ def search_stores(search):
     # TODO match postcode first
     matching_postcode = []
     matching_name = []
-    for store in STORES:
+    for index, store in enumerate(LOWERCASE_STORES):
         if search in store['postcode'].lower():
-            matching_postcode.append(store)
+            matching_postcode.append(STORES[index])
         elif search in store['name'].lower():
-            matching_name.append(store)
+            matching_name.append(STORES[index])
     return matching_postcode + matching_name
 
 
