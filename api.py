@@ -15,14 +15,25 @@ parser = reqparse.RequestParser()
 parser.add_argument('search')
 
 
+def search_stores(search):
+    search = search.lower()
+    # TODO match postcode first
+    matching_postcode = []
+    matching_name = []
+    for store in STORES:
+        if search in store['postcode'].lower():
+            matching_postcode.append(store)
+        elif search in store['name'].lower():
+            matching_name.append(store)
+    return matching_postcode + matching_name
+
+
 class Stores(Resource):
     def get(self):
         args = parser.parse_args()
         search = args['search']
         if args['search']:
-            # Very simple linear search to start off with.
-            search = search.lower()
-            stores = [store for store in STORES if search in store['postcode'] or search in store['name'].lower()]
+            stores = search_stores(search)
         else:
             stores = STORES
         return stores
