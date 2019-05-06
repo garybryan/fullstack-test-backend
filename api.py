@@ -2,9 +2,11 @@ import json
 
 from flask import Flask
 from flask_restful import reqparse, Api, Resource
+from flask_cors import CORS
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 # Load stores data into memory.
 with open('stores.json') as f:
