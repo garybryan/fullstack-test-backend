@@ -27,3 +27,5 @@ class StoresTestCase(unittest.TestCase):
         data = res.get_json()
         self.assertEqual(len(data), 5)
         self.assertEqual(data[0], {'name': 'Orpington', 'postcode': 'BR5 3RP'})  # Only store with BR in postcode: should be first.
+
+    # TODO should have tests for offset and limit too, but not had time to do these.
